@@ -28,6 +28,36 @@
 				//calculamos la posicion(coordenadas) del canvas en el documento con jquery
 				var canvasPosY = $("#lienzo").offset().top;
 				var canvasPosX = $("#lienzo").offset().left;
+				
+				
+				var canvas = $("#lienzo")[0];
+				var contexto = canvas.getContext("2d");
+				
+				$("#canvas").mouseover(function(evento){
+					xInicial = evento.pageX - canvasPosX;
+					yInicial = evento.pageY - canvasPosY;
+				});
+				
+				$("#lienzo").mousemove(function(evento) {
+					var xFinal = evento.pageX - canvasPosX;
+					var yFinal = evento.pageY - canvasPosY;
+					
+					contexto.strokeStyle = "blue";
+					contexto.lineWidth = 8;
+					contexto.lineCap = "round";
+					contexto.beginPath();
+					contexto.moveTo(xInicial,yInicial);
+					contexto.lineTo(xFinal,yFinal);
+					contexto.stroke();
+					
+					xInicial = xFinal;
+					yInicial = yFinal;
+					
+				});
+				
+				$(".tipo-color").click(function(evento){
+					contexto.strokeStyle = $(evento.target).css("background-color");
+				});
 
 			});
 		</script>
